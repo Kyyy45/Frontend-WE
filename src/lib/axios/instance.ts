@@ -28,7 +28,10 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error),
+  (error) => {
+    console.error("API Error:", error);
+    return Promise.reject(error);
+  },
 );
 
 export default instance;  

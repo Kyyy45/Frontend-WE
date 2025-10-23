@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
-import { SessionProvider } from "next-auth/react";
+import { RootLayoutClient } from "./layout.client";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -28,31 +26,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const fontClassName = cn(plusJakartaSans.variable);
+
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn(plusJakartaSans.variable)}
-    >
-      <body
-        className={cn(
-          "antialiased min-h-screen bg-background",
-          plusJakartaSans.variable
-        )}
-      >
-        <SessionProvider>
-          <ReactQueryProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-            </ThemeProvider>
-          </ReactQueryProvider>
-        </SessionProvider>
-      </body>
-    </html>
+    <RootLayoutClient fontClassName={fontClassName}>
+      {children}
+    </RootLayoutClient>
   );
 }

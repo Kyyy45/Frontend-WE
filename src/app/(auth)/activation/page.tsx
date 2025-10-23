@@ -20,7 +20,7 @@ export default function ActivationPage() {
         const result = await authServices.activation({ code });
         console.log("Activation API result:", result?.data);
 
-        if (result.data.data) {
+        if (result?.data?.data) {
           setStatus("success");
         } else {
           setStatus("failed");

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import {
@@ -61,7 +63,7 @@ const LoginForm = () => {
         {/* Ilustrasi */}
         <div className="hidden items-center justify-center md:flex md:w-1/2">
           <Image
-            src="/illustrations/Login.png"
+            src="/illustrations/register-2.png"
             alt="Login Illustration"
             width={1024}
             height={1024}

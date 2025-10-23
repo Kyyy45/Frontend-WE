@@ -41,7 +41,7 @@ const useLogin = () => {
       redirect: false,
       callbackUrl,
     });
-    if (result?.ok) {
+    if (!result?.ok) {
       // Jika login gagal, lempar error agar ditangkap oleh onError di useMutation
       throw new Error("email or username not match with your password");
     }
@@ -52,14 +52,14 @@ const useLogin = () => {
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
+    onSuccess: () => {
+      router.push(callbackUrl);
+      reset();
+    },
     onError(error) {
       setError("root", {
         message: error.message,
       });
-    },
-    onSuccess: () => {
-      router.push(callbackUrl);
-      reset();
     },
   });
 
