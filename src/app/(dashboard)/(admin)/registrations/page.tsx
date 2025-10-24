@@ -1,1 +1,0 @@
-// Manage pendaftaran (CRUD data pendaftaran)
