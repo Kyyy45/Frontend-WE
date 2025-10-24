@@ -12,7 +12,6 @@ import {
   Plus,
   Database,
 } from "lucide-react";
-
 export type MenuItemType = {
   label: string;
   href: string;
