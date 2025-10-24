@@ -1,33 +1,16 @@
-"use client";
-
-import { Sidebar } from "@/components/sidebar/sidebar";
+import type { Metadata } from "next";
 import { ReactNode } from "react";
-import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
-const inter = Inter({
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
+import DashboardLayoutClient from "./DashboardLayoutClient";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Worldpedia Education",
+  description: "Dashboard Member/Admin Worldpedia Education",
+};
 
 export default function DashboardLayout({
-    children,
+  children,
 }: {
-    children: ReactNode;
+  children: ReactNode;
 }) {
-    return (
-        <div className="flex min-h-screen">
-            {/* Sidebar */}
-            <Sidebar />
-
-            {/* Main Content */}
-            <main
-                className={cn(
-                    inter.className,
-                    "bg-auth-pattern flex min-h-screen flex-col overflow-auto pt-16 md:pt-0",
-                )}
-            >
-                {children}
-            </main>
-        </div>
-    );
+  return <DashboardLayoutClient>{children}</DashboardLayoutClient>;
 }
