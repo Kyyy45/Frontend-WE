@@ -1,7 +1,11 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ReactNode } from "react";
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset,
+} from "@/components/ui/sidebar";
 import { AppSidebar } from "./sidebar/AppSidebar";
 import { SIDEBAR_ADMIN, SIDEBAR_MEMBER } from "./sidebar/menu-data";
 import { cn } from "@/lib/utils";
@@ -14,25 +18,28 @@ interface DashboardLayoutProps {
   type?: "admin" | "member";
 }
 
-export default function DashboardLayoutClient({ children, type = "admin" }: DashboardLayoutProps) {
-  const [open, setOpen] = useState(true);
+export default function DashboardLayoutClient({
+  children,
+  type = "admin",
+}: DashboardLayoutProps) {
+  const sidebarItems = type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER;
 
   return (
-    <SidebarProvider>
-      <AppSidebar
-        sidebarItems={type === "admin" ? SIDEBAR_ADMIN : SIDEBAR_MEMBER}
-        isOpen={open}
-      />
-
-      <main
-        className={cn(
-          inter.className,
-          "flex flex-1 flex-col min-h-screen bg-gray-50 ml-[var(--sidebar-width)]"
-        )}
-      >
-        <SidebarTrigger onClick={() => setOpen(!open)} className="m-2" />
-        {children}
-      </main>
+    <SidebarProvider defaultOpen={true}>
+      <AppSidebar sidebarItems={sidebarItems} />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 transition-[width,height] ease-linear">
+          <SidebarTrigger className="-ml-1" />
+          <div className="flex flex-1 items-center justify-between">
+            <h1 className={cn(inter.className, "text-2xl font-bold")}>
+              Dashboard
+            </h1>
+          </div>
+        </header>
+        <main className={cn(inter.className, "flex-1 overflow-auto p-4")}>
+          {children}
+        </main>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
